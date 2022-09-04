@@ -5,7 +5,7 @@ import Playlist from '../Playlist/Playlist';
 import SearchResults from '../SearchResults/SearchResults';
 import Spotify from '../../util/Spotify';
 
-const initialPlaylistTracks = [
+/* const initialPlaylistTracks = [
   {name: 'One', artist: 'Metallica', album: '...And Justice for All', id: 666},
   {name: 'Dark City', artist: 'Iced Earth', album: 'Dystopia', id: 667},
   {name: 'Legend and the Lore', artist: 'Falconer', album: 'Northwind', id: 777}
@@ -15,12 +15,12 @@ const initialSearchResults = [
   {id: 1, name: 'Blood for Blood', artist: 'Lord of the Lost', album: 'Die Tomorrow', uri: 'one.uri'},
   {id: 2, name: 'Dozing Green', artist: 'Dir En Grey', album: 'Uroboros', uri: 'one.uri'},
   {id: 3, name: 'Path', artist: 'Apocalyptica', album: 'Cult', uri: 'one.uri'}
-];
+]; */
 
 function App() {
-  const [playlistName,setPlaylistName] = useState('laulu'); 
-  const [playlistTracks, setPlaylistTracks] = useState(initialPlaylistTracks);
-  const [searchResults, setSearchResults] = useState(initialSearchResults);
+  const [playlistName,setPlaylistName] = useState('New Playlist'); 
+  const [playlistTracks, setPlaylistTracks] = useState([]);
+  const [searchResults, setSearchResults] = useState([]);
 
   const addTrack = (track) => {   
     if(playlistTracks.find(savedTrack => savedTrack.id === track.id)) {
@@ -41,8 +41,11 @@ function App() {
   }
 
   const savePlaylist = () => {    
-    const tracksURIs = playlistTracks.map(track => track.artist);    
-    alert(JSON.stringify(tracksURIs))        
+    const tracksURIs = playlistTracks.map(track => track.artist);  
+    Spotify.savePlaylist (playlistName, tracksURIs).then (() => {
+      setPlaylistName('Another New Playlist'); 
+      setPlaylistTracks([]);
+    })
   }
 
   const search = (searchTerm) => {

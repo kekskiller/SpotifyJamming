@@ -24,16 +24,15 @@ const Spotify = {
 
     },
 
-        //Endpoint: /v1/search?type=TRACK
         // API Documentation: https://developer.spotify.com/documentation/web-api/reference/#/operations/search ???
 
     search(searchTerm) {
         const accessToken = Spotify.getAccessToken();
 
-        return fetch(`https://api.spotify.com/v1/search?type=track&q=${searchTerm}`, {headers: {Autorization: `Bearer ${accessToken}`} }
+        return fetch(`https://api.spotify.com/v1/search?type=track&q=${searchTerm}`, {headers: {Authorization: `Bearer ${accessToken}`}, mode: 'cors' }
         )  .then (response => response.json )
-            .then (jsonResponse => {
-                if (!jsonResponse.tracks) {
+            .then (jsonResponse => {                
+                if (!jsonResponse.tracks) {                    
                     return [];
                 }
                 return jsonResponse.tracks.items.map(track => ({
@@ -52,16 +51,17 @@ const Spotify = {
             return;
         }
         const accessToken = Spotify.getAccessToken();
-        const headers = {Autorization: `Bearer ${accessToken}`};
+        const headers = {Authorization: `Bearer ${accessToken}`};
         let userId;
       
 
-        return fetch(`https://api.spotify.com/v1/me`, {headers: headers}
+        return fetch(`https://api.spotify.com/v1/me`, {headers: headers, mode: 'cors'}
         )   .then (response => response.json)
             .then (jsonResponse => {
                 userId = jsonResponse.id;
                 return fetch (`https://api.spotify.com/v1/users/${userId}/playlists`, {
                     headers:headers, 
+                    mode: 'cors',
                     method: 'POST', 
                     body: JSON.stringify({name: playlistName})
                 })  .then(response => response.json()
@@ -69,10 +69,10 @@ const Spotify = {
                     const playlistId = jsonResponse.id;
                     return fetch (`https://api.spotify.com/v1/users/${userId}/playlists/${playlistId}/tracks`, {
                             headers:headers, 
-                            method: 'POST', 
+                            mode: 'cors',
+                            method: 'POST',                             
                             body: JSON.stringify({ uris: uriArray})
-                    })  .then(response => response.json()
-                    )   .then(jsonResponse => {
+                    })  
                 })
             })
         
@@ -83,4 +83,4 @@ const Spotify = {
     }
 }
 
-export default Spotify
+export default Spotify;
