@@ -2,17 +2,6 @@ import "./TrackList.css"
 import React from "react"
 import Track from "../Track/Track"
 
-/* function TrackList(props) {
-
-
-    return(
-        <div className='TrackList'>
-            { props.tracksOnList.map(track => <Track track={track} key={track.id} onAdd={props.onAdd} isRemoval={false}/>) }
-        </div>
-    )
-    
-} */
-
 class TrackList extends React.Component {
   // eslint-disable-next-line
   constructor(props) {
