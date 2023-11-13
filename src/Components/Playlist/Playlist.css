@@ -4,9 +4,9 @@
   align-items: center;
   justify-content: flex-start;
   overflow-y: scroll;
-  width: 40vw;
+  width: 30vw;
 
-  height: 70vh;
+  height: 55vh;
   padding: 17px;
   background-color: rgba(44, 25, 53, 0.7);
   box-shadow: 0 4px 2px 2px #000000;
@@ -56,5 +56,6 @@
 @media only screen and (min-width: 1400px) {
   .Playlist {
     width: 25vw;
+    height: 70vh;
   }
 }
