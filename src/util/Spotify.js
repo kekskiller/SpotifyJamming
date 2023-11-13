@@ -1,7 +1,7 @@
 let accessToken
 const clientId = "0bd13b84a6464422b1b5c9035bda4efe"
 //const redirectUri = 'http://localhost:3000/';
-const redirectUri = "http://kittenisjamming.surge.sh"
+const redirectUri = "https://enchanting-narwhal-efd2fb.netlify.app/"
 
 const Spotify = {
   getAccessToken() {
