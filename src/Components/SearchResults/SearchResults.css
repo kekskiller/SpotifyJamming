@@ -4,6 +4,7 @@
   padding: 17px;
   background-color: rgba(44, 25, 53, 0.7);
   box-shadow: 0 4px 2px 2px #000000;
+  overflow: scroll;
 }
 
 ::-webkit-scrollbar {
