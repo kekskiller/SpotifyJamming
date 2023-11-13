@@ -1,6 +1,7 @@
 let accessToken;
 const clientId = '0bd13b84a6464422b1b5c9035bda4efe';
-const redirectUri = 'http://localhost:3000/';
+//const redirectUri = 'http://localhost:3000/';
+const redirectUri = 'http://kittenisjamming.surge.sh'
 
 const Spotify = {
     getAccessToken() {
@@ -30,9 +31,9 @@ const Spotify = {
         const accessToken = Spotify.getAccessToken();
 
         return fetch(`https://api.spotify.com/v1/search?type=track&q=${searchTerm}`, {headers: {Authorization: `Bearer ${accessToken}`}, mode: 'cors' }
-        )  .then (response => response.json )
+        )  .then (response => response.json() )
             .then (jsonResponse => {                
-                if (!jsonResponse.tracks) {                    
+                if (!jsonResponse.tracks) {                                  ;
                     return [];
                 }
                 return jsonResponse.tracks.items.map(track => ({
@@ -56,7 +57,7 @@ const Spotify = {
       
 
         return fetch(`https://api.spotify.com/v1/me`, {headers: headers, mode: 'cors'}
-        )   .then (response => response.json)
+        )   .then (response => response.json())
             .then (jsonResponse => {
                 userId = jsonResponse.id;
                 return fetch (`https://api.spotify.com/v1/users/${userId}/playlists`, {
