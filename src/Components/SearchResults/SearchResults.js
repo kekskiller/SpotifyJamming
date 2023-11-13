@@ -3,6 +3,7 @@ import React from "react"
 import Tracklist from "../TrackList/TrackList"
 
 class SearchResults extends React.Component {
+  // eslint-disable-next-line
   constructor(props) {
     super(props)
   }
