@@ -56,7 +56,7 @@ function App() {
   return (
     <div>
       <h1 className="header">
-        ja<span className="highlight">mmm</span>ing
+        spotify ja<span className="highlight">mmm</span>ing
       </h1>
       <div className="App">
         <SearchBar onSearch={search} />
