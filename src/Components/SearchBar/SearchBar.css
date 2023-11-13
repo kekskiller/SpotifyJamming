@@ -1,7 +1,9 @@
 .SearchBar {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
+  justify-content: center;
+  gap: 20px;
   padding-top: 1rem;
   margin-bottom: 2.5rem;
 }
@@ -11,7 +13,7 @@
   padding: 0.88rem 0;
   border: 1px solid #fff;
   border-radius: 3px;
-  margin-bottom: 0.8rem;
+
   color: #ffffff;
   text-align: center;
   font-size: 1rem;
