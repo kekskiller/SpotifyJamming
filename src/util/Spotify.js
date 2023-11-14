@@ -8,6 +8,7 @@ const Spotify = {
     if (accessToken) {
       return accessToken
     }
+
     // check for access token match:
     const accessTokenMatch = window.location.href.match(/access_token=([^&]*)/)
     const expiresInMatch = window.location.href.match(/expires_in=([^&]*)/)
@@ -21,31 +22,38 @@ const Spotify = {
       return accessToken
     } else {
       window.location = `https://accounts.spotify.com/authorize?client_id=${clientId}&response_type=token&scope=playlist-modify-public&redirect_uri=${redirectUri}`
+      alert(accessToken)
     }
   },
 
-  // API Documentation: https://developer.spotify.com/documentation/web-api/reference/#/operations/search ???
+  // API Documentation: https://developer.spotify.com/documentation/web-api/reference/#/operations/search
 
-  search(searchTerm) {
-    const accessToken = Spotify.getAccessToken()
+  async search(searchTerm) {
+    let accessToken = await Spotify.getAccessToken()
 
-    return fetch(`https://api.spotify.com/v1/search?type=track&q=${searchTerm}`, {
-      headers: { Authorization: `Bearer ${accessToken}` },
-      mode: "cors",
-    })
-      .then((response) => response.json())
-      .then((jsonResponse) => {
-        if (!jsonResponse.tracks) {
-          return []
-        }
-        return jsonResponse.tracks.items.map((track) => ({
-          id: track.id,
-          name: track.name,
-          artist: track.artists[0].name,
-          album: track.album.name,
-          uri: track.uri,
-        }))
+    try {
+      const response = await fetch(`https://api.spotify.com/v1/search?type=track&q=${searchTerm}`, {
+        headers: { Authorization: `Bearer ${accessToken}` },
+        mode: "cors",
       })
+
+      const jsonResponse = await response.json()
+
+      if (!jsonResponse.tracks) {
+        return []
+      }
+
+      return jsonResponse.tracks.items.map((track) => ({
+        id: track.id,
+        name: track.name,
+        artist: track.artists[0].name,
+        album: track.album.name,
+        uri: track.uri,
+      }))
+    } catch (error) {
+      console.error("Error during search:", error)
+      return []
+    }
   },
 
   savePlaylist(playlistName, uriArray) {

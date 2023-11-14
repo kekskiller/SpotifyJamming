@@ -5,17 +5,7 @@ import Playlist from "../Playlist/Playlist"
 import SearchResults from "../SearchResults/SearchResults"
 import Spotify from "../../util/Spotify"
 
-/* const initialPlaylistTracks = [
-  {name: 'One', artist: 'Metallica', album: '...And Justice for All', id: 666},
-  {name: 'Dark City', artist: 'Iced Earth', album: 'Dystopia', id: 667},
-  {name: 'Legend and the Lore', artist: 'Falconer', album: 'Northwind', id: 777}
-];*/
-
 const initialSearchResults = []
-//   { id: "1a", name: "Blood for Blood", artist: "Lord of the Lost", album: "Die Tomorrow", uri: "one.uri" },
-//   { id: "2v", name: "Dozing Green", artist: "Dir En Grey", album: "Uroboros", uri: "one.uri" },
-//   { id: "4g", name: "Path", artist: "Apocalyptica", album: "Cult", uri: "one.uri" },
-// ]
 
 function App() {
   const [playlistName, setPlaylistName] = useState("")
