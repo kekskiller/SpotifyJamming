@@ -18,7 +18,7 @@ const initialSearchResults = []
 // ]
 
 function App() {
-  const [playlistName, setPlaylistName] = useState("New Playlist")
+  const [playlistName, setPlaylistName] = useState("")
   const [playlistTracks, setPlaylistTracks] = useState([])
   const [searchResults, setSearchResults] = useState(initialSearchResults)
 
@@ -43,7 +43,7 @@ function App() {
   const savePlaylist = () => {
     const tracksURIs = playlistTracks.map((track) => `spotify:track:${track.id}`)
     Spotify.savePlaylist(playlistName, tracksURIs).then(() => {
-      setPlaylistName("Another New Playlist")
+      setPlaylistName("")
       setPlaylistTracks([])
     })
   }
