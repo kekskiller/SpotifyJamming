@@ -9,7 +9,12 @@ export default function Playlist(props) {
 
   return (
     <div className="Playlist">
-      <input value={props.playlistName} onChange={handleNameChange} placeholder="Enter Playlist Name" />
+      <input
+        id="playlistName"
+        value={props.playlistName}
+        onChange={handleNameChange}
+        placeholder="Enter Playlist Name"
+      />
       <TrackList tracksOnList={props.playlistTracks} onRemove={props.onRemove} isRemoval={true} />
       <button
         className="Playlist-save"

@@ -1,5 +1,6 @@
 import "./SearchBar.css"
 import React from "react"
+import Spotify from "../../util/Spotify"
 
 class SearchBar extends React.Component {
   constructor(props) {
@@ -9,18 +10,26 @@ class SearchBar extends React.Component {
     this.state = { term: "" }
   }
 
+  async componentDidMount() {
+    const accessTokenMatch = window.location.href.match(/access_token=([^&]*)/)
+    const expiresInMatch = window.location.href.match(/expires_in=([^&]*)/)
+    if (!accessTokenMatch && !expiresInMatch) {
+      await Spotify.getAccessToken()
+    }
+  }
+
   search = () => {
     this.props.onSearch(this.state.term)
   }
 
   handleTermChange = (e) => {
     this.setState({ term: e.target.value })
-    //alert(this.state.term);
   }
   render() {
     return (
       <div className="SearchBar">
         <input
+          id="searchInput"
           onChange={this.handleTermChange}
           placeholder="Enter A Song, Album, or Artist"
           onFocus={(e) => (e.target.placeholder = "")}
