@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import "./App.css"
 import SearchBar from "../SearchBar/SearchBar"
 import Playlist from "../Playlist/Playlist"
@@ -11,12 +11,18 @@ function App() {
   const [playlistName, setPlaylistName] = useState("")
   const [playlistTracks, setPlaylistTracks] = useState([])
   const [searchResults, setSearchResults] = useState(initialSearchResults)
+  const [term, setTerm] = useState(() => {
+    return localStorage.getItem("searchTerm") || ""
+  })
 
+  useEffect(() => {
+    localStorage.setItem("searchTerm", term)
+  }, [term])
   const addTrack = (track) => {
     if (playlistTracks.find((savedTrack) => savedTrack.id === track.id)) {
       return
     } else {
-      setPlaylistTracks([...playlistTracks, track]) //spread-Operator
+      setPlaylistTracks([...playlistTracks, track])
     }
   }
 
@@ -39,6 +45,13 @@ function App() {
   }
 
   const search = async (searchTerm) => {
+    setTerm(searchTerm)
+    const accessTokenMatch = window.location.href.match(/access_token=([^&]*)/)
+    const expiresInMatch = window.location.href.match(/expires_in=([^&]*)/)
+    if (!accessTokenMatch && !expiresInMatch) {
+      await Spotify.getAccessToken()
+    }
+
     let result = await Spotify.search(searchTerm)
     setSearchResults(result)
   }
@@ -49,7 +62,7 @@ function App() {
         spotify ja<span className="highlight">mmm</span>ing
       </h1>
       <div className="App">
-        <SearchBar onSearch={search} />
+        <SearchBar onSearch={search} searchTerm={term} />
         <div className="App-playlist">
           <SearchResults searchResults={searchResults} onAdd={addTrack} />
           <Playlist
